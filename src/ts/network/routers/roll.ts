@@ -52,7 +52,7 @@ router.addRoute({
     game.messages.contents.slice(-20).forEach((message: ChatMessage) => {
       const cleanText = stripHtmlKeepTraitSpaces(message.flavor);
       if (cleanText) {
-        recentChat.push(message.export(), '\n', cleanText);
+        recentChat.push(`${message.export()}\n${cleanText}`);
       } else {
         recentChat.push(message.export());
       }
