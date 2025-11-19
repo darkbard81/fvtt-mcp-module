@@ -10,7 +10,7 @@ router.addRoute(
         actionType: "chat-message",
         handler: (data) => {
             // const user = gmUserIds();
-            if (!data.audioPath) {
+            if (data.audioPath) {
                 const audioPath = data.audioPath;
                 foundry.audio.AudioHelper.play({ src: audioPath, volume: 0.8, loop: false });
             }
