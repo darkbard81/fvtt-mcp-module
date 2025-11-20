@@ -1,6 +1,6 @@
 import "../styles/style.scss";
 import { FoundryRestApi } from "./types";
-import { moduleId, recentRolls, MAX_ROLLS_STORED, CONSTANTS, SETTINGS } from "./constants";
+import { moduleId, CONSTANTS, SETTINGS } from "./constants";
 import { ModuleLogger } from "./utils/logger";
 import { initializeWebSocket } from "./network/webSocketEndpoints";
 
@@ -222,59 +222,59 @@ Hooks.once("ready", () => {
   }, 1000);
 });
 
-Hooks.on("createChatMessage", (message: any) => {
-  if (message.isRoll && message.rolls?.length > 0) {
-    ModuleLogger.info(`Detected dice roll from ${message.user?.name || 'unknown'}`);
+// Hooks.on("createChatMessage", (message: any) => {
+//   if (message.isRoll && message.rolls?.length > 0) {
+//     ModuleLogger.info(`Detected dice roll from ${message.user?.name || 'unknown'}`);
     
-    // Generate a unique ID using the message ID to prevent duplicates
-    const rollId = message.id;
+//     // Generate a unique ID using the message ID to prevent duplicates
+//     const rollId = message.id;
     
-    // Format roll data
-    const rollData = {
-      id: rollId,
-      messageId: message.id,
-      user: {
-        id: message.user?.id,
-        name: message.user?.name
-      },
-      speaker: message.speaker,
-      flavor: message.flavor || "",
-      rollTotal: message.rolls[0].total,
-      formula: message.rolls[0].formula,
-      isCritical: message.rolls[0].isCritical || false,
-      isFumble: message.rolls[0].isFumble || false,
-      dice: message.rolls[0].dice?.map((d: any) => ({
-        faces: d.faces,
-        results: d.results.map((r: any) => ({
-          result: r.result,
-          active: r.active
-        }))
-      })),
-      timestamp: Date.now()
-    };
+//     // Format roll data
+//     const rollData = {
+//       id: rollId,
+//       messageId: message.id,
+//       user: {
+//         id: message.user?.id,
+//         name: message.user?.name
+//       },
+//       speaker: message.speaker,
+//       flavor: message.flavor || "",
+//       rollTotal: message.rolls[0].total,
+//       formula: message.rolls[0].formula,
+//       isCritical: message.rolls[0].isCritical || false,
+//       isFumble: message.rolls[0].isFumble || false,
+//       dice: message.rolls[0].dice?.map((d: any) => ({
+//         faces: d.faces,
+//         results: d.results.map((r: any) => ({
+//           result: r.result,
+//           active: r.active
+//         }))
+//       })),
+//       timestamp: Date.now()
+//     };
     
-    // Check if this roll ID already exists in recentRolls
-    const existingIndex = recentRolls.findIndex(roll => roll.id === rollId);
-    if (existingIndex !== -1) {
-      // If it exists, update it instead of adding a new entry
-      recentRolls[existingIndex] = rollData;
-    } else {
-      // Add to recent rolls
-      recentRolls.unshift(rollData);
+//     // Check if this roll ID already exists in recentRolls
+//     const existingIndex = recentRolls.findIndex(roll => roll.id === rollId);
+//     if (existingIndex !== -1) {
+//       // If it exists, update it instead of adding a new entry
+//       recentRolls[existingIndex] = rollData;
+//     } else {
+//       // Add to recent rolls
+//       recentRolls.unshift(rollData);
       
-      // Trim the array if needed
-      if (recentRolls.length > MAX_ROLLS_STORED) {
-        recentRolls.length = MAX_ROLLS_STORED;
-      }
-    }
+//       // Trim the array if needed
+//       if (recentRolls.length > MAX_ROLLS_STORED) {
+//         recentRolls.length = MAX_ROLLS_STORED;
+//       }
+//     }
     
-    // Send to relay server if connected
-    const module = game.modules.get(moduleId) as FoundryRestApi;
-    if (module.socketManager?.isConnected()) {
-      module.socketManager.send({
-        type: "roll-data",
-        data: rollData
-      });
-    }
-  }
-});
+//     // Send to relay server if connected
+//     const module = game.modules.get(moduleId) as FoundryRestApi;
+//     if (module.socketManager?.isConnected()) {
+//       module.socketManager.send({
+//         type: "roll-data",
+//         data: rollData
+//       });
+//     }
+//   }
+// });
