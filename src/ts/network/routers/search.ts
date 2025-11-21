@@ -10,8 +10,20 @@ router.addRoute({
     const socketManager = context?.socketManager;
     ModuleLogger.info(`Received request for roll data`);
 
+    const tokenLayer = canvas?.tokens ?? game.canvas?.tokens;
+    if (!tokenLayer) {
+      ModuleLogger.error("Canvas tokens layer is unavailable; cannot search tokens.");
+      socketManager?.send({
+        type: "search-tokens-result",
+        requestId: data.requestId,
+        error: "Canvas not ready",
+        data: []
+      });
+      return;
+    }
+
     const tokenInfo: any[] = [];
-    game.canvas.tokens?.placeables.forEach((t: foundry.canvas.placeables.Token) => {
+    tokenLayer.placeables.forEach((t: foundry.canvas.placeables.Token) => {
       const actorId = t.document.actorId;
       if (!actorId) return;
 
