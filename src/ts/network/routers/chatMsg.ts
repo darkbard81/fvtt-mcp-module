@@ -71,15 +71,14 @@ router.addRoute(
     {
         actionType: "chat-message",
         handler: (data) => {
-            // const user = gmUserIds();
             if (data.audioPath) {
                 const audioPath = data.audioPath;
                 foundry.audio.AudioHelper.play({ src: audioPath, volume: 0.8, loop: false });
             }
-            const audience = [...everyoneUserIds()];
+            // const audience = [...everyoneUserIds()];
             ChatMessage.create({
                 speaker: ChatMessage.getSpeaker(),
-                whisper: audience,
+                //whisper: audience,
                 content: data.message,
             });
             ModuleLogger.info(`Received chat-message`);
@@ -98,4 +97,4 @@ router.addRoute(
 )
 
 // function gmUserIds() { return game.users.filter(u => u.isGM).map(u => u.id); }
-function everyoneUserIds() { return game.users.map(u => u.id); }
+// function everyoneUserIds() { return game.users.map(u => u.id); }
