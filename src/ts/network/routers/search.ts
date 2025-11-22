@@ -11,7 +11,7 @@ router.addRoute({
     ModuleLogger.info(`Received request for roll data`);
 
     const tokenInfo: any[] = [];
-    game.canvas.tokens?.placeables.forEach((t: foundry.canvas.placeables.Token) => {
+    canvas.tokens?.placeables.forEach((t: foundry.canvas.placeables.Token) => {
       const actorId = t.document.actorId;
       if (!actorId) return;
 
