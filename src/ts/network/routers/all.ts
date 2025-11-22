@@ -11,6 +11,7 @@ import {router as UtilityRouter} from "./utility"
 import {router as FileSystemRouter} from "./fileSystem"
 import {router as Dnd5eRouter} from "./dnd5e"
 import {router as chatMsgRouter} from "./chatMsg"
+import {router as journalRouter} from "./journal"
 
 
 export const routers: Router[] = [
@@ -25,5 +26,6 @@ export const routers: Router[] = [
     UtilityRouter,
     FileSystemRouter,
     Dnd5eRouter,
-    chatMsgRouter
+    chatMsgRouter,
+    journalRouter
 ]

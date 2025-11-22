@@ -16,7 +16,7 @@
     "@typescript-eslint/eslint-plugin": "^8.46.4",
     "@typescript-eslint/parser": "^8.46.4",
     "eslint": "^9.39.1",
-    "fvtt-types": "github:League-of-Foundry-Developers/foundry-vtt-types#main",
+    "fvtt-types": "^13.346.0",
     "prettier": "^3.6.2",
     "rollup": "^4.53.2",
     "rollup-plugin-copy": "^3.5.0",

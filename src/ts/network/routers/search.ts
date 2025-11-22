@@ -9,7 +9,7 @@ router.addRoute({
   handler: async (data, context) => {
     const socketManager = context?.socketManager;
     ModuleLogger.info(`Received request for roll data`);
-
+  
     const tokenInfo: any[] = [];
     canvas.tokens?.placeables.forEach((t: foundry.canvas.placeables.Token) => {
       const actorId = t.document.actorId;
